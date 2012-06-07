@@ -6,8 +6,8 @@ outdata = zeros(EEG.nbchan*(length(freqrange)-1),EEG.pnts,EEG.trials);
 
 for cfreq = 1:length(freqrange)-1
    
-    tempEEG = pop_eegfilt(EEG,freqrange(cfreq),0, [], [0], 0, 0, 'fir1');  %hipass
-    tempEEG = pop_eegfilt(tempEEG,0,freqrange(cfreq+1), [], [0], 0, 0, 'fir1'); %lopass
+    tempEEG = pop_eegfilt(EEG,freqrange(cfreq),0, [], [0], 0, 0, 'fir1', 0);  %hipass
+    tempEEG = pop_eegfilt(tempEEG,0,freqrange(cfreq+1), [], [0], 0, 0, 'fir1', 0); %lopass
     %tempEEG = pop_eegfilt(EEG,freqrange(cfreq),freqrange(cfreq+1)); %bandpss
 
     tempEEG.data = reshape(tempEEG.data,EEG.nbchan,EEG.pnts,EEG.trials);
