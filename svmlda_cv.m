@@ -18,7 +18,6 @@ labels = zeros(1,numtrials);
 for t = 1:numtrials
     labels(t) = strcmp(EEG.trialclass{t},classtypes{1});
 end
-save(sprintf('%s.mat',EEG.setname),'features','labels');
 
 %%%% KEY PARAMETERS %%%%
 actwin = [1 4];
@@ -290,7 +289,10 @@ switch TrainTestMethod
 end
 
 EEG.data = [];
-save([EEG.setname '.mat'],'EEG','features','labels','out_accu','timevals','clsfyr');
+
+if strcmp(TrainTestMethod,'train')
+    save([eeg.setname '.mat'],'eeg','features','labels','out_accu','timevals','clsfyr');
+end
 
 if strcmp(TrainTestMethod,'bootcv')
     save([EEG.setname '.mat'],'boot_accu','best_boot','boot_sig','-append');
