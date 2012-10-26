@@ -32,6 +32,7 @@ EEG.setname = basename;
 
 if EEG.nbchan == 129 || EEG.nbchan == 91
     EEG.origchan = {'E6','E7','E13','E29','E30','E31','E35','E36','E37','E41','E42','E54','E55','E79','E80','E87','E93','E103','E104','E105','E106','E110','E111','E112','Cz'};
+    %EEG.origchan = {'E29','E42','E111','E93','E28','E47','E117','E98'};
     
     origchan = zeros(1,length(EEG.origchan));
     for c = 1:length(EEG.origchan)
@@ -43,6 +44,24 @@ elseif size(EEG.data,1) == 257
 end
 fprintf('Keeping %d channels.\n', length(origchan));
 EEG = pop_select(EEG,'channel',origchan);
+% 
+% %make bipolar channels
+% eogpairs = {
+%     'E29'   'E42'
+%     'E111'  'E93'
+%     'E28'   'E47'
+%     'E117'  'E98'
+%     };
+% 
+% fprintf('\nCalculating bipolar channels.\n');
+% for p = 1:size(eogpairs,1)
+%     ch1idx = find(strcmp(eogpairs{p,1},{EEG.chanlocs.labels}));
+%     ch2idx = find(strcmp(eogpairs{p,2},{EEG.chanlocs.labels}));
+%     eogdata = EEG.data(ch1idx,:) - EEG.data(ch2idx,:);
+%     EEG.data(ch1idx,:) = eogdata;
+%     EEG.chanlocs(ch1idx).labels = sprintf('BIP%d',p);
+%     EEG = pop_select(EEG,'nochannel',ch2idx);
+% end
 
 f_low = 7;
 f_step = 6;

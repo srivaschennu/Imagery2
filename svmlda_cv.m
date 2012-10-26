@@ -326,6 +326,7 @@ text(xlim(2)+0.2,55,'MORE TRAINING','Rotation',90);
 title(sprintf('Single-trial classification accuracy for %s', EEG.setname), 'Interpreter', 'none');
 grid on
 box on
+set(gcf,'Name',sprintf('%s: %s vs %s',EEG.setname,classtypes{1},classtypes{2}));
 
 if strcmp(TrainTestMethod,'bootcv')
     for t = 1:numsamples
