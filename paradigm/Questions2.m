@@ -27,21 +27,31 @@ if ~isfield(hd,'pahandle')
         PsychPortAudio('Close',0);
     end
     
-    %Mac
-    if ismac
+    %Try Terratec DMX ASIO driver first. If not found, revert to
+    %native sound device
+    if ispc
+        audiodevices = PsychPortAudio('GetDevices',3);
+        if ~isempty(audiodevices)
+            %DMX audio
+            outdevice = strcmp('DMX 6Fire USB ASIO Driver',{audiodevices.DeviceName});
+            hd.outdevice = 2;
+        else
+            %Windows default audio
+            audiodevices = PsychPortAudio('GetDevices',2);
+            outdevice = strcmp('Microsoft Sound Mapper - Output',{audiodevices.DeviceName});
+            hd.outdevice = 3;
+        end
+    elseif ismac
         audiodevices = PsychPortAudio('GetDevices');
-        outdevice = strcmp('Built-in Output',{audiodevices.DeviceName});
-        hd.outdevice = 1;
-    elseif ispc
-        %DMX
-        % audiodevices = PsychPortAudio('GetDevices',3);
-        % outdevice = strcmp('DMX 6Fire USB ASIO Driver',{audiodevices.DeviceName});
-        % hd.outdevice = 2;
-        
-        %Windows
-        audiodevices = PsychPortAudio('GetDevices',2);
-        outdevice = strcmp('Microsoft Sound Mapper - Output',{audiodevices.DeviceName});
-        hd.outdevice = 3;
+        %DMX audio
+        outdevice = strcmp('TerraTec DMX 6Fire USB',{audiodevices.DeviceName});
+        hd.outdevice = 2;
+        if sum(outdevice) ~= 1
+            %Mac default audio
+            audiodevices = PsychPortAudio('GetDevices');
+            outdevice = strcmp('Built-in Output',{audiodevices.DeviceName});
+            hd.outdevice = 1;
+        end
     else
         error('Unsupported OS platform!');
     end
