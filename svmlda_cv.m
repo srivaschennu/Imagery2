@@ -294,9 +294,9 @@ if strcmp(TrainTestMethod,'train')
     save([eeg.setname '.mat'],'eeg','features','labels','out_accu','timevals','clsfyr');
 end
 
-if strcmp(TrainTestMethod,'bootcv')
-    save([EEG.setname '.mat'],'boot_accu','best_boot','boot_sig','-append');
-end
+% if strcmp(TrainTestMethod,'bootcv')
+%     save([EEG.setname '.mat'],'boot_accu','best_boot','boot_sig','-append');
+% end
     
 %% plot figures
 ylim = [50 100];
