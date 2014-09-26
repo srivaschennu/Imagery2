@@ -373,9 +373,9 @@ for b = plotbands
     plotvals(origchan) = class1vals - class2vals;
     
     subplot(length(plotbands),2,plotidx);
-    headplot(plotvals,[chanlocpath splinefile],'electrodes','off','view',[0 90],'maplimits',[-0.5 0.5]);
+    headplot(plotvals,[chanlocpath splinefile],'electrodes','off','view',[0 90],'maplimits',[-0.1 0.1]);
     subplot(length(plotbands),2,plotidx+1);
-    headplot(plotvals,[chanlocpath splinefile],'electrodes','off','view',[-136 44],'maplimits',[-0.5 0.5]); zoom(1.5);
+    headplot(plotvals,[chanlocpath splinefile],'electrodes','off','view',[-136 44],'maplimits',[-0.1 0.1]); zoom(1.5);
     
     plotidx = plotidx+2;
 end
