@@ -352,7 +352,7 @@ chanlocs = chanlocs(4:end);
 numbands = numfeatures/numchan;
 bandnum = sort(repmat(1:numbands,1,numchan));
 plotbands = 1:numbands;
-plotbands = 4;
+% plotbands = [1 4];
 
 origchan = zeros(1,length(EEG.origchan));
 for c = 1:length(EEG.origchan)
