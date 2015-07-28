@@ -297,7 +297,7 @@ end
 % if strcmp(TrainTestMethod,'bootcv')
 %     save([EEG.setname '.mat'],'boot_accu','best_boot','boot_sig','-append');
 % end
-    
+
 %% plot figures
 ylim = [50 100];
 xlim = [timevals(1)/1000 timevals(end)/1000];
@@ -352,35 +352,30 @@ chanlocs = chanlocs(4:end);
 numbands = numfeatures/numchan;
 bandnum = sort(repmat(1:numbands,1,numchan));
 plotbands = 1:numbands;
-% plotbands = [1 4];
 
 origchan = zeros(1,length(EEG.origchan));
 for c = 1:length(EEG.origchan)
     origchan(c) = find(strcmp(EEG.origchan{c},{chanlocs.labels}));
 end
 
-figure('Color','white');
-figpos = get(gcf,'Position');
-figpos(4) = figpos(4)*length(plotbands);
-set(gcf,'Position',figpos);
-plotidx = 1;
 
 for b = plotbands
+    figure('Color','white');
+    
     plotvals = zeros(1,129);
     
     class1vals = mean(features(bandnum == b,bestaccuidx,labels == 1),3)';
     class2vals = mean(features(bandnum == b,bestaccuidx,labels == 0),3)';
     plotvals(origchan) = class1vals - class2vals;
     
-    subplot(length(plotbands),2,plotidx);
+    subplot(1,2,1);
     headplot(plotvals,[chanlocpath splinefile],'electrodes','off','view',[0 90],'maplimits',[-0.1 0.1]);
-    subplot(length(plotbands),2,plotidx+1);
+    subplot(1,2,2);
     headplot(plotvals,[chanlocpath splinefile],'electrodes','off','view',[-136 44],'maplimits',[-0.1 0.1]); zoom(1.5);
     
-    plotidx = plotidx+2;
+    set(gcf,'Name',sprintf('%s, band %s: %s vs %s',EEG.setname,b,classtypes{1},classtypes{2}));
 end
 
-set(gcf,'Name',sprintf('%s: %s vs %s',EEG.setname,classtypes{1},classtypes{2}));
 
 if strcmp(TrainTestMethod,'bootcv')
     fprintf('%s: %s vs %s best accuracy at %.2f sec: %.1f%% (p = %.3f) across %d trials\n',...
