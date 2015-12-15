@@ -373,7 +373,7 @@ for b = plotbands
     subplot(1,2,2);
     headplot(plotvals,[chanlocpath splinefile],'electrodes','off','view',[-136 44],'maplimits',[-0.1 0.1]); zoom(1.5);
     
-    set(gcf,'Name',sprintf('%s, band %s: %s vs %s',EEG.setname,b,classtypes{1},classtypes{2}));
+    set(gcf,'Name',sprintf('%s, band %d: %s vs %s',EEG.setname,b,classtypes{1},classtypes{2}));
 end
 
 
