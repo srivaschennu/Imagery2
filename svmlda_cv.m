@@ -368,10 +368,10 @@ for b = plotbands
     class2vals = mean(features(bandnum == b,bestaccuidx,labels == 0),3)';
     plotvals(origchan) = class1vals - class2vals;
     
-    subplot(1,2,1);
+%     subplot(1,2,1);
     headplot(plotvals,[chanlocpath splinefile],'electrodes','off','view',[0 90],'maplimits',[-0.1 0.1]);
-    subplot(1,2,2);
-    headplot(plotvals,[chanlocpath splinefile],'electrodes','off','view',[-136 44],'maplimits',[-0.1 0.1]); zoom(1.5);
+%     subplot(1,2,2);
+%     headplot(plotvals,[chanlocpath splinefile],'electrodes','off','view',[-136 44],'maplimits',[-0.1 0.1]); zoom(1.5);
     
     set(gcf,'Name',sprintf('%s, band %d: %s vs %s',EEG.setname,b,classtypes{1},classtypes{2}));
 end
